@@ -7,3 +7,4 @@ export { default as NewPost } from './NewPost';
 export { default as ViewPost } from './ViewPost';
 export { default as PostMessages } from './PostMessages';
 export { default as EditPost } from './EditPost';
+export { default as Home } from './Home';

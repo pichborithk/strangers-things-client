@@ -1,23 +1,15 @@
 import { FormEvent, useEffect, useState } from 'react';
-import {
-  Link,
-  redirect,
-  useNavigate,
-  useOutletContext,
-} from 'react-router-dom';
+import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 
 import logo from '../asset/Resized_svg.svg';
-import { registerUser } from '../api/fetchAPI';
-import { useAppDispatch, useAppSelector } from '../app/store';
-import { setNotification } from '../app/tokenSlice';
+import { registerUser } from '../helpers/fetchAPI';
 import { RootContext } from '../types/types';
 
 const SignUp = () => {
   const { token } = useOutletContext<RootContext>();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
-  const notification = useAppSelector(state => state.tokenReducer.notification);
+  const [notification, setNotification] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -29,7 +21,7 @@ const SignUp = () => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      dispatch(setNotification('Password do not match'));
+      setNotification('Password do not match');
       setUsername('');
       setPassword('');
       setConfirmPassword('');
@@ -39,10 +31,10 @@ const SignUp = () => {
     try {
       const result = await registerUser({ username, password });
       if (result && result.error) {
-        dispatch(setNotification(result.error.message));
+        setNotification(result.error.message);
         throw result.error;
       }
-      dispatch(setNotification(result!.data!.message));
+      setNotification(result!.data!.message);
     } catch (error) {
       console.error('Catch handle register', error);
     } finally {
@@ -53,7 +45,7 @@ const SignUp = () => {
   }
 
   useEffect(() => {
-    dispatch(setNotification(''));
+    setNotification('');
     if (token) {
       navigate('/');
     }

@@ -4,18 +4,18 @@ import {
   useOutletContext,
   useParams,
 } from 'react-router-dom';
+
 import { Message, RootContext } from '../types/types';
 import { useEffect, useState } from 'react';
-import { deletePost } from '../api/fetchAPI';
-import { useAppDispatch } from '../app/store';
-import { getPosts } from '../app/postsSlice';
-import { getUserData } from '../app/userDataSlice';
+import { deletePost } from '../helpers/fetchAPI';
 
 const ViewPost = () => {
-  const { token, posts, userData } = useOutletContext<RootContext>();
-  const dispatch = useAppDispatch();
+  const { token, posts, userData, getPosts, getUserData } =
+    useOutletContext<RootContext>();
+
   const navigate = useNavigate();
   const { id } = useParams();
+
   const [messagesList, setMessagesList] = useState<Message[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const post = posts.find(post => post._id === id)!;
@@ -31,7 +31,10 @@ const ViewPost = () => {
   }, [post]);
 
   useEffect(() => {
-    if (!token) return navigate('/signin');
+    if (!token) {
+      navigate('/signin');
+      return;
+    }
   }, []);
 
   if (!posts || !userData || !post) return <></>;
@@ -39,8 +42,8 @@ const ViewPost = () => {
   async function handleDelete() {
     const result = await deletePost(id!, token);
     if (result) {
-      dispatch(getPosts());
-      dispatch(getUserData(token));
+      await getPosts();
+      await getUserData(token);
       navigate('/');
     }
   }
@@ -117,6 +120,8 @@ const ViewPost = () => {
           userData,
           isEditing,
           setIsEditing,
+          getPosts,
+          getUserData,
         }}
       />
     </div>

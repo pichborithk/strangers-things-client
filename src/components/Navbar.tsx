@@ -1,18 +1,20 @@
 import { Link } from 'react-router-dom';
-
-import { useAppDispatch } from '../app/store';
-import { setToken } from '../app/tokenSlice';
-import { clearUserData } from '../app/userDataSlice';
 import logo from "../asset/stranger's things.png";
 import { NavbarProps } from '../types/types';
+import { initialUserData } from '../types/classes';
 
-const Navbar = ({ token, openUser, setOpenUser, userData }: NavbarProps) => {
-  const dispatch = useAppDispatch();
-
+const Navbar = ({
+  token,
+  openUser,
+  setOpenUser,
+  userData,
+  setToken,
+  setUserData,
+}: NavbarProps) => {
   function handleSignOut(): void {
-    dispatch(setToken(''));
+    setToken('');
     localStorage.clear();
-    dispatch(clearUserData());
+    setUserData(initialUserData);
   }
 
   return (

@@ -1,4 +1,5 @@
 import { Dispatch, RefObject, SetStateAction } from 'react';
+import { UserData } from './classes';
 
 export type Post = {
   title: string;
@@ -14,11 +15,6 @@ export type Post = {
   isAuthor: boolean;
   updatedAt: string;
 };
-
-export type UserData = {
-  posts: Post[];
-  messages: Message[];
-} & UserInfo;
 
 export type UserInfo = {
   username: string;
@@ -81,6 +77,9 @@ export type RootContext = {
   token: string;
   posts: Post[];
   userData: UserData;
+  setToken: Dispatch<SetStateAction<string>>;
+  getPosts: () => Promise<void>;
+  getUserData: (token: string) => Promise<void>;
 };
 
 export type ViewPostContext = {
@@ -91,6 +90,8 @@ export type ViewPostContext = {
   userData: UserData;
   isEditing: boolean;
   setIsEditing: Dispatch<SetStateAction<boolean>>;
+  getPosts: () => Promise<void>;
+  getUserData: (token: string) => Promise<void>;
 };
 
 export type PostFromProps = {
@@ -111,4 +112,6 @@ export type NavbarProps = {
   openUser: boolean;
   userData: UserData;
   setOpenUser: Dispatch<SetStateAction<boolean>>;
+  setToken: Dispatch<SetStateAction<string>>;
+  setUserData: Dispatch<SetStateAction<UserData>>;
 };

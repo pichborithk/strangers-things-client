@@ -1,17 +1,14 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
+
 import { ViewPostContext } from '../types/types';
-import { updatePost } from '../api/fetchAPI';
-import { useAppDispatch } from '../app/store';
-import { getPosts } from '../app/postsSlice';
-import { getUserData } from '../app/userDataSlice';
+import { updatePost } from '../helpers/fetchAPI';
 import { PostForm } from '../components';
 
 const EditPost = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { id, post, token, isEditing, setIsEditing } =
+  const { id, post, token, isEditing, setIsEditing, getPosts, getUserData } =
     useOutletContext<ViewPostContext>();
 
   const [title, setTitle] = useState<string>('');
@@ -44,8 +41,8 @@ const EditPost = () => {
 
     const result = await updatePost(id!, token, dataObj);
     if (result) {
-      dispatch(getPosts());
-      dispatch(getUserData(token));
+      getPosts();
+      getUserData(token);
       setIsEditing(false);
       navigate(`/${id}`);
     }

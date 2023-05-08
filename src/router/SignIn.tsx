@@ -1,38 +1,45 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { Link, useNavigate, useOutletContext } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../app/store';
-import { login, setNotification } from '../app/tokenSlice';
+
 import { RootContext } from '../types/types';
+import { fetchTokenLogin } from '../helpers/fetchAPI';
 
 const SignIn = () => {
-  const { token } = useOutletContext<RootContext>();
+  const { token, setToken } = useOutletContext<RootContext>();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
-  const notification = useAppSelector(state => state.tokenReducer.notification);
+  const [notification, setNotification] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
 
   async function handleSignIn(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
-    dispatch(login({ username, password }));
-
-    setUsername('');
-    setPassword('');
+    try {
+      const result = await fetchTokenLogin({ username, password });
+      if (result && result.error) {
+        setNotification(result.error.message);
+        throw result.error;
+      }
+      setToken(result!.data!.token);
+    } catch (error) {
+      console.error('Catch handle sign in', error);
+    } finally {
+      setUsername('');
+      setPassword('');
+    }
   }
 
   useEffect(() => {
     if (token) {
       localStorage.setItem('TOKEN', token);
-      dispatch(setNotification(''));
+      setNotification('');
       navigate('/');
     }
   }, [token]);
 
   useEffect(() => {
-    dispatch(setNotification(''));
+    setNotification('');
   }, []);
 
   return (

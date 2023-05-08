@@ -1,17 +1,14 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
-import { RootContext } from '../types/types';
-import { makePost } from '../api/fetchAPI';
 import { useNavigate, useOutletContext } from 'react-router-dom';
-import { useAppDispatch } from '../app/store';
-import { getPosts } from '../app/postsSlice';
-import { getUserData } from '../app/userDataSlice';
+
+import { RootContext } from '../types/types';
+import { makePost } from '../helpers/fetchAPI';
 import { PostForm } from '../components';
 
 const NewPost = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { token } = useOutletContext<RootContext>();
+  const { token, getPosts, getUserData } = useOutletContext<RootContext>();
 
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -43,8 +40,8 @@ const NewPost = () => {
       }
       if (result && result.data) {
         console.log(result.data);
-        dispatch(getPosts());
-        dispatch(getUserData(token));
+        getPosts();
+        getUserData(token);
         navigate('/');
       }
     } catch (error) {

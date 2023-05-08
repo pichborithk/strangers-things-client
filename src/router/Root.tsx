@@ -1,26 +1,38 @@
 import { Outlet } from 'react-router-dom';
 import { Navbar } from '../components';
-import { useAppDispatch, useAppSelector } from '../app/store';
-import { getPosts } from '../app/postsSlice';
-import { clearUserData, getUserData } from '../app/userDataSlice';
 import { useEffect, useState } from 'react';
+import { Post } from '../types/types';
+import { initialUserData } from '../types/classes';
+import { fetchAllPosts } from '../helpers/fetchAPI';
+import { fetchUserData } from '../helpers/fetchAPI';
+
+const initialToken: string = localStorage.getItem('TOKEN')
+  ? localStorage.getItem('TOKEN')!
+  : '';
 
 const Root = () => {
-  const dispatch = useAppDispatch();
-
-  const token = useAppSelector(state => state.tokenReducer.token);
-  const posts = useAppSelector(state => state.postsReducer.posts);
-  const userData = useAppSelector(state => state.userDataReducer.userData);
+  const [token, setToken] = useState(initialToken);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [userData, setUserData] = useState(initialUserData);
 
   const [openUser, setOpenUser] = useState(false);
 
+  async function getPosts(): Promise<void> {
+    const result = await fetchAllPosts();
+    setPosts(result);
+  }
+  async function getUserData(token: string): Promise<void> {
+    const result = (await fetchUserData(token)) || initialUserData;
+    setUserData(result);
+  }
+
   useEffect(() => {
-    dispatch(getPosts());
+    getPosts();
     if (!token) {
-      dispatch(clearUserData());
+      setUserData(initialUserData);
       return;
     } else {
-      dispatch(getUserData(token));
+      getUserData(token);
     }
   }, [token]);
 
@@ -35,8 +47,12 @@ const Root = () => {
         openUser={openUser}
         setOpenUser={setOpenUser}
         userData={userData}
+        setToken={setToken}
+        setUserData={setUserData}
       />
-      <Outlet context={{ token, posts, userData }} />
+      <Outlet
+        context={{ token, posts, userData, setToken, getPosts, getUserData }}
+      />
       <div
         onClick={toggleDarkMode}
         className='fixed bottom-[5%] right-[5%] z-10 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-primary text-4xl text-secondary transition-colors duration-500 ease-in-out hover:scale-110 dark:bg-secondary'

@@ -1,22 +1,20 @@
 import { FormEvent, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import { postMessage } from '../api/fetchAPI';
+
+import { postMessage } from '../helpers/fetchAPI';
 import { ViewPostContext } from '../types/types';
-import { useAppDispatch } from '../app/store';
-import { getUserData } from '../app/userDataSlice';
 
 const PostMessages = () => {
-  const { token, id, post, messagesList, userData } =
+  const { token, id, post, messagesList, userData, getUserData } =
     useOutletContext<ViewPostContext>();
   const [message, setMessage] = useState('');
-  const dispatch = useAppDispatch();
 
   async function handleSubmitMessage(event: FormEvent) {
     event.preventDefault();
     const result = await postMessage(id!, token, message);
     if (result) {
       setMessage('');
-      dispatch(getUserData(token));
+      getUserData(token);
     }
   }
 

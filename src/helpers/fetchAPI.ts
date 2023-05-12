@@ -50,12 +50,18 @@ export async function fetchTokenLogin({
   }
 }
 
-export async function fetchAllPosts(): Promise<Post[]> {
+export async function fetchAllPosts(token: string = ''): Promise<Post[]> {
   try {
-    const response = await fetch(`${BASE_URL}/posts`);
+    const response = await fetch(`${BASE_URL}/posts`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${token}`,
+      },
+    });
     const result = await response.json();
-    if (result.error) console.error(result.error.message);
-    return result.data.posts;
+    if (!result.success) console.error(result.message);
+    return result.data;
   } catch (error) {
     console.error(error);
     return [];

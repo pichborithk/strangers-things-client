@@ -17,8 +17,8 @@ const Root = () => {
 
   const [openUser, setOpenUser] = useState(false);
 
-  async function getPosts(): Promise<void> {
-    const result = await fetchAllPosts();
+  async function getPosts(token: string): Promise<void> {
+    const result = await fetchAllPosts(token);
     setPosts(result);
   }
   async function getUserData(token: string): Promise<void> {
@@ -26,15 +26,16 @@ const Root = () => {
     setUserData(result);
   }
 
-  // useEffect(() => {
-  //   getPosts();
-  //   if (!token) {
-  //     setUserData(initialUserData);
-  //     return;
-  //   } else {
-  //     getUserData(token);
-  //   }
-  // }, [token]);
+  useEffect(() => {
+    if (!token) {
+      getPosts('');
+      // setUserData(initialUserData);
+      return;
+    } else {
+      // getUserData(token);
+      getPosts(token);
+    }
+  }, [token]);
 
   function toggleDarkMode() {
     document.documentElement.classList.toggle('dark');

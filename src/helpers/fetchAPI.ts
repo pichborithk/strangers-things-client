@@ -1,15 +1,13 @@
+import { UserData } from '../types/classes';
 import {
   MakeNewPost,
   NewPost,
   Post,
   TokenFetch,
   UserAuth,
-  UserData,
 } from '../types/types';
 
-const BASE_URL = `${import.meta.env.VITE_API_URL}/${
-  import.meta.env.VITE_COHORT_NAME
-}`;
+const BASE_URL = `${import.meta.env.VITE_API_URL}`;
 
 export async function registerUser({
   username,
@@ -21,7 +19,7 @@ export async function registerUser({
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ user: { username, password } }),
+      body: JSON.stringify({ username, password }),
     });
     const result = await response.json();
     return result;
@@ -40,11 +38,12 @@ export async function fetchTokenLogin({
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ user: { username, password } }),
+      body: JSON.stringify({ username, password }),
     });
-    const result: TokenFetch = await response.json();
-    if (result.error) console.error(result.error.message);
-    if (result.success) console.log(result.data?.message);
+    const result = await response.json();
+    if (!result.success) {
+      console.error(result.message);
+    }
     return result;
   } catch (error) {
     console.error('Catch Error on FetchTokenLogin', error);

@@ -30,11 +30,11 @@ const SignUp = () => {
 
     try {
       const result = await registerUser({ username, password });
-      if (result && result.error) {
-        setNotification(result.error.message);
-        throw result.error;
+      if (result && !result.success) {
+        setNotification(result.message);
+        return;
       }
-      setNotification(result!.data!.message);
+      setNotification(result!.message);
     } catch (error) {
       console.error('Catch handle register', error);
     } finally {

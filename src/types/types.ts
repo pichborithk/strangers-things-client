@@ -39,8 +39,8 @@ export type UserAuth = {
 
 export type TokenFetch = {
   success: boolean;
-  error: Error | null;
-  data: { token: string; message: string } | null;
+  message: string;
+  data: { token: string } | null;
 };
 
 export type NewPost = {

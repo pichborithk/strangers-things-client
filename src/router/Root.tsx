@@ -26,15 +26,15 @@ const Root = () => {
     setUserData(result);
   }
 
-  useEffect(() => {
-    getPosts();
-    if (!token) {
-      setUserData(initialUserData);
-      return;
-    } else {
-      getUserData(token);
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   getPosts();
+  //   if (!token) {
+  //     setUserData(initialUserData);
+  //     return;
+  //   } else {
+  //     getUserData(token);
+  //   }
+  // }, [token]);
 
   function toggleDarkMode() {
     document.documentElement.classList.toggle('dark');

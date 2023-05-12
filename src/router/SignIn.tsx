@@ -17,10 +17,11 @@ const SignIn = () => {
     event.preventDefault();
     try {
       const result = await fetchTokenLogin({ username, password });
-      if (result && result.error) {
-        setNotification(result.error.message);
-        throw result.error;
+      if (result && !result.success) {
+        setNotification(result.message);
+        return;
       }
+      console.log(result!.data);
       setToken(result!.data!.token);
     } catch (error) {
       console.error('Catch handle sign in', error);

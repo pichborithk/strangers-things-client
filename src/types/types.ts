@@ -52,6 +52,7 @@ export type NewPost = {
 };
 
 export type MakeNewPost = {
+  success: boolean;
   error: Error | null;
   data: Post | null;
 };

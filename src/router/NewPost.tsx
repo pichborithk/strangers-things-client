@@ -35,11 +35,7 @@ const NewPost = () => {
         };
     try {
       const result = await makePost(dataObj, token);
-      if (result && result.error) {
-        throw result.error;
-      }
       if (result && result.data) {
-        console.log(result.data);
         getPosts();
         getUserData(token);
         navigate('/');

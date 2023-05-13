@@ -110,12 +110,12 @@ export async function deletePost(id: string, token: string): Promise<boolean> {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: token,
       },
     });
     const result = await response.json();
-    if (result.error) {
-      throw result.error;
+    if (!result.success) {
+      throw result.message;
     } else {
       console.log('Success Delete Post');
       return true;

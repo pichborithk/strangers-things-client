@@ -171,3 +171,30 @@ export async function updatePost(id: string, token: string, dataObj: NewPost) {
     return false;
   }
 }
+
+export async function deleteComment(
+  postId: string,
+  token: string,
+  commentId: string
+) {
+  try {
+    const response = await fetch(`${BASE_URL}/comments/delete/${postId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
+      body: JSON.stringify({ commentId }),
+    });
+    const result = await response.json();
+    if (!result.success) {
+      throw result.message;
+    } else {
+      console.log('Success Delete Comment');
+      return true;
+    }
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}

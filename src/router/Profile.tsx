@@ -7,10 +7,13 @@ const Profile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token) return navigate('/signin');
+    if (!token) {
+      navigate('/signin');
+      return;
+    }
   }, []);
 
-  if (!userData) return <></>;
+  if (!userData._id) return <></>;
 
   return (
     <div className='mx-auto flex max-w-6xl flex-col items-center gap-4'>
@@ -34,8 +37,8 @@ const Profile = () => {
                   {post.description}
                 </span>
                 <p>{post.price}</p>
-                <p>{post.messages.length} message(s)</p>
-                <p>{post.__v} view(s)</p>
+                <p>{post.comments.length} message(s)</p>
+                <p>0 view(s)</p>
               </div>
             );
         })}
@@ -75,8 +78,8 @@ const Profile = () => {
                   {post.description}
                 </span>
                 <p>{post.price}</p>
-                <p>{post.messages.length} message(s)</p>
-                <p>{post.__v} view(s)</p>
+                <p>{post.comments.length} message(s)</p>
+                <p>0 view(s)</p>
               </div>
             );
         })}

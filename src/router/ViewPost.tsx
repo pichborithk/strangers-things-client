@@ -5,7 +5,7 @@ import {
   useParams,
 } from 'react-router-dom';
 
-import { Message, RootContext } from '../types/types';
+import { RootContext } from '../types/types';
 import { useEffect, useState } from 'react';
 import { deletePost } from '../helpers/fetchAPI';
 

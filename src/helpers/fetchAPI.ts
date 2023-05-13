@@ -128,13 +128,13 @@ export async function deletePost(id: string, token: string): Promise<boolean> {
 
 export async function postMessage(id: string, token: string, content: string) {
   try {
-    const response = await fetch(`${BASE_URL}/posts/${id}/messages`, {
+    const response = await fetch(`${BASE_URL}/comments/create/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: token,
       },
-      body: JSON.stringify({ message: { content } }),
+      body: JSON.stringify({ content }),
     });
     const result = await response.json();
     if (result.error) {

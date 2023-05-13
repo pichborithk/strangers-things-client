@@ -16,19 +16,8 @@ const ViewPost = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [messagesList, setMessagesList] = useState<Message[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const post = posts.find(post => post._id === id)!;
-
-  useEffect(() => {
-    if (!post) return;
-    if (post.author._id === userData._id) {
-      const newMessagesList = userData.posts.find(
-        userPost => userPost._id === id
-      )!.messages;
-      setMessagesList(newMessagesList);
-    }
-  }, [post]);
 
   useEffect(() => {
     if (!token) {
@@ -61,7 +50,17 @@ const ViewPost = () => {
           <span className='font-jura font-bold text-slate-400'>
             {post.description}
           </span>
-          {post.author._id === userData._id ? (
+          <p className='mt-2'>0 view(s)</p>
+        </div>
+        <div className='flex flex-col items-end justify-between'>
+          <h2 className='text-2xl'>{post.price}</h2>
+          <p>
+            {post.willDeliver ? 'Deliver' : 'Pick up'}{' '}
+            {post.willDeliver && (
+              <i className='fa-solid fa-circle-check text-checked'></i>
+            )}
+          </p>
+          {post.isAuthor ? (
             <div className='mt-2'>
               <button
                 onClick={() => handleDelete()}
@@ -81,33 +80,7 @@ const ViewPost = () => {
               </button>
             </div>
           ) : (
-            <p className='mt-2'>0 view(s)</p>
-          )}
-        </div>
-        <div className='flex flex-col items-end justify-between'>
-          <h2 className='text-2xl'>{post.price}</h2>
-          {post.author._id !== userData._id ? (
-            <>
-              <p>
-                {post.willDeliver ? 'Deliver' : 'Pick up'}{' '}
-                {post.willDeliver && (
-                  <i className='fa-solid fa-circle-check text-checked'></i>
-                )}
-              </p>
-              <p className='font-jura font-bold text-slate-400'>
-                {post.location}
-              </p>
-            </>
-          ) : (
-            <>
-              <p>
-                {post.willDeliver ? 'Deliver' : 'Pick up'}{' '}
-                {post.willDeliver && (
-                  <i className='fa-solid fa-circle-check text-checked'></i>
-                )}
-              </p>
-              <p>0 view(s)</p>
-            </>
+            <p>{post.location}</p>
           )}
         </div>
       </div>
@@ -116,7 +89,6 @@ const ViewPost = () => {
           token,
           id,
           post,
-          messagesList,
           userData,
           isEditing,
           setIsEditing,

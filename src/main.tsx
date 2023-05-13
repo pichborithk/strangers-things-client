@@ -30,14 +30,14 @@ const router = createBrowserRouter([
       { path: 'signin', element: <SignIn /> },
       // { path: 'profile', element: <Profile /> },
       // { path: 'new', element: <NewPost /> },
-      // {
-      //   path: ':id',
-      //   element: <ViewPost />,
-      //   children: [
-      //     { index: true, element: <PostMessages /> },
-      //     { path: 'edit', element: <EditPost /> },
-      //   ],
-      // },
+      {
+        path: ':id',
+        element: <ViewPost />,
+        children: [
+          { index: true, element: <PostMessages /> },
+          { path: 'edit', element: <EditPost /> },
+        ],
+      },
     ],
   },
 ]);

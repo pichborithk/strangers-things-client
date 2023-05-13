@@ -10,22 +10,18 @@ const Home = () => {
 
   useEffect(() => {
     if (!posts) return;
-    const newPosts = posts.filter(
+    const filteredPosts = posts.filter(
       post =>
         post.title.toLowerCase().includes(keyword.toLocaleLowerCase()) ||
         keyword === ''
     );
-    newPosts.sort((prevPost, nextPost) => {
+    filteredPosts.sort((prevPost, nextPost) => {
       const prevPostDate = new Date(prevPost.updatedAt);
       const nextPostDate = new Date(nextPost.updatedAt);
       return nextPostDate.getTime() - prevPostDate.getTime();
     });
-    setPostsFiltered(newPosts);
+    setPostsFiltered(filteredPosts);
   }, [keyword, posts]);
-
-  // useEffect(() => {
-  //   console.log(postsFiltered);
-  // }, [postsFiltered]);
 
   return (
     <div>
@@ -47,12 +43,7 @@ const Home = () => {
       </form>
       <div className='mx-auto mt-4 flex max-w-6xl flex-col gap-2'>
         {postsFiltered.map(post => (
-          <PostCard
-            post={post}
-            token={token}
-            isOwner={post.author._id === userData._id}
-            key={post._id}
-          />
+          <PostCard post={post} token={token} key={post._id} />
         ))}
       </div>
     </div>

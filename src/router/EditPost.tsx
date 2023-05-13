@@ -41,8 +41,8 @@ const EditPost = () => {
 
     const result = await updatePost(id!, token, dataObj);
     if (result) {
-      getPosts();
-      getUserData(token);
+      await getPosts(token);
+      await getUserData(token);
       setIsEditing(false);
       navigate(`/${id}`);
     }

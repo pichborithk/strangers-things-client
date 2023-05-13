@@ -31,7 +31,7 @@ const ViewPost = () => {
   async function handleDelete() {
     const result = await deletePost(id!, token);
     if (result) {
-      await getPosts();
+      await getPosts(token);
       await getUserData(token);
       navigate('/');
     }

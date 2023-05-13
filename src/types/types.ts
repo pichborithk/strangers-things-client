@@ -8,12 +8,12 @@ export type Post = {
   price: string;
   _id: string;
   author: UserInfo;
-  __v: number;
-  messages: { _id: string; fromUser: UserInfo; content: string }[];
+  comments: { _id: string; fromUser: UserInfo; content: string }[];
   willDeliver: boolean;
   active: boolean;
   isAuthor: boolean;
   updatedAt: string;
+  createAt: string;
 };
 
 export type UserInfo = {
@@ -69,7 +69,6 @@ export type HomeProps = {
 
 export type PostCardProps = {
   post: Post;
-  isOwner: boolean;
   token: string;
 };
 

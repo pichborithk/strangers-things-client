@@ -22,17 +22,22 @@ const Root = () => {
     setPosts(result);
   }
   async function getUserData(token: string): Promise<void> {
-    const result = (await fetchUserData(token)) || initialUserData;
-    setUserData(result);
+    const result = await fetchUserData(token);
+    // console.log(result);
+    if (result && result._id) {
+      setUserData(result);
+      return;
+    }
+    setUserData(initialUserData);
   }
 
   useEffect(() => {
     if (!token) {
       getPosts('');
-      // setUserData(initialUserData);
+      setUserData(initialUserData);
       return;
     } else {
-      // getUserData(token);
+      getUserData(token);
       getPosts(token);
     }
   }, [token]);

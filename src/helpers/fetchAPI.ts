@@ -73,11 +73,11 @@ export async function fetchUserData(token: string): Promise<UserData | void> {
     const response = await fetch(`${BASE_URL}/users/me`, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: token,
       },
     });
     const result = await response.json();
-    if (result.error) throw result.error;
+    if (!result.success) throw result.error;
     return result.data;
   } catch (error) {
     console.error('Catch error on fetchUserData', error);

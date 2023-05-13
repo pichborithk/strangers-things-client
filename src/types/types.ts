@@ -78,7 +78,7 @@ export type RootContext = {
   posts: Post[];
   userData: UserData;
   setToken: Dispatch<SetStateAction<string>>;
-  getPosts: () => Promise<void>;
+  getPosts: (token: string) => Promise<void>;
   getUserData: (token: string) => Promise<void>;
 };
 
@@ -90,7 +90,7 @@ export type ViewPostContext = {
   userData: UserData;
   isEditing: boolean;
   setIsEditing: Dispatch<SetStateAction<boolean>>;
-  getPosts: () => Promise<void>;
+  getPosts: (token: string) => Promise<void>;
   getUserData: (token: string) => Promise<void>;
 };
 

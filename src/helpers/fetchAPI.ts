@@ -88,7 +88,6 @@ export async function makePost(
   dataObj: NewPost,
   token: string
 ): Promise<MakeNewPost | void> {
-  console.log(dataObj);
   try {
     const response = await fetch(`${BASE_URL}/posts/create`, {
       method: 'POST',
@@ -156,12 +155,12 @@ export async function updatePost(id: string, token: string, dataObj: NewPost) {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: token,
       },
-      body: JSON.stringify({ post: dataObj }),
+      body: JSON.stringify(dataObj),
     });
     const result = await response.json();
-    if (result.error) {
+    if (!result.success) {
       throw result.error;
     } else {
       console.log(result.data);

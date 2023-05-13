@@ -1,11 +1,12 @@
 import { FormEvent, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
-import { postMessage } from '../helpers/fetchAPI';
+import { deleteComment, postMessage } from '../helpers/fetchAPI';
 import { ViewPostContext } from '../types/types';
 
 const PostMessages = () => {
-  const { token, id, post, getUserData } = useOutletContext<ViewPostContext>();
+  const { token, id, post, getUserData, userData, getPosts } =
+    useOutletContext<ViewPostContext>();
   const [message, setMessage] = useState('');
 
   async function handleSubmitMessage(event: FormEvent) {
@@ -13,7 +14,21 @@ const PostMessages = () => {
     const result = await postMessage(id!, token, message);
     if (result) {
       setMessage('');
-      getUserData(token);
+      await getPosts(token);
+      await getUserData(token);
+    }
+  }
+
+  async function handleDeleteComment(
+    postId: string,
+    token: string,
+    commentId: string
+  ) {
+    const result = await deleteComment(postId, token, commentId);
+    if (result) {
+      setMessage('');
+      await getPosts(token);
+      await getUserData(token);
     }
   }
 
@@ -21,15 +36,21 @@ const PostMessages = () => {
     <>
       <h2 className='text-2xl dark:text-secondary'>Comments</h2>
       {post.comments &&
-        post.comments.map(msg => (
+        post.comments.map(cmt => (
           <div
-            key={msg._id}
+            key={cmt._id}
             className='w-full rounded-md border border-slate-200 bg-white px-12 py-8 shadow-lg transition-colors duration-300 ease-in-out dark:border-slate-700 dark:bg-black dark:text-secondary'
           >
             <h2 className='mb-2 font-jura text-4xl text-primary'>
-              From: {msg.fromUser.username}
+              From: {cmt.fromUser.username}
             </h2>
-            <p>{msg.content}</p>
+            <p>{cmt.content}</p>
+            {userData._id === cmt.fromUser._id && (
+              <i
+                className='fa-solid fa-trash'
+                onClick={() => handleDeleteComment(id!, token, cmt._id)}
+              ></i>
+            )}
           </div>
         ))}
       <form

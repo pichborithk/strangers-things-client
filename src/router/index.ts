@@ -5,6 +5,6 @@ export { default as SignIn } from './SignIn';
 export { default as Profile } from './Profile';
 export { default as NewPost } from './NewPost';
 export { default as ViewPost } from './ViewPost';
-export { default as PostMessages } from './PostMessages';
+export { default as PostComments } from './PostComments';
 export { default as EditPost } from './EditPost';
 export { default as Home } from './Home';

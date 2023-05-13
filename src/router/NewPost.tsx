@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 
 import { RootContext } from '../types/types';
-import { makePost } from '../helpers/fetchAPI';
+import { createPost } from '../helpers/fetchAPI';
 import { PostForm } from '../components';
 
 const NewPost = () => {
@@ -34,7 +34,7 @@ const NewPost = () => {
           willDeliver: deliverRef.current!.checked,
         };
     try {
-      const result = await makePost(dataObj, token);
+      const result = await createPost(dataObj, token);
       if (result && result.data) {
         await getPosts(token);
         await getUserData(token);

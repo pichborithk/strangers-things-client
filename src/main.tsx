@@ -29,7 +29,7 @@ const router = createBrowserRouter([
       { path: 'register', element: <SignUp /> },
       { path: 'signin', element: <SignIn /> },
       { path: 'profile', element: <Profile /> },
-      // { path: 'new', element: <NewPost /> },
+      { path: 'new', element: <NewPost /> },
       {
         path: ':id',
         element: <ViewPost />,

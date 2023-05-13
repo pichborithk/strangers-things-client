@@ -88,14 +88,15 @@ export async function makePost(
   dataObj: NewPost,
   token: string
 ): Promise<MakeNewPost | void> {
+  console.log(dataObj);
   try {
-    const response = await fetch(`${BASE_URL}/posts`, {
+    const response = await fetch(`${BASE_URL}/posts/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: token,
       },
-      body: JSON.stringify({ post: dataObj }),
+      body: JSON.stringify(dataObj),
     });
     const result = await response.json();
     return result;

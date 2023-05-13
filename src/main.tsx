@@ -7,7 +7,7 @@ import {
   EditPost,
   ErrorPage,
   NewPost,
-  PostMessages,
+  PostComments,
   Profile,
   Root,
   SignIn,
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         path: ':id',
         element: <ViewPost />,
         children: [
-          { index: true, element: <PostMessages /> },
+          { index: true, element: <PostComments /> },
           { path: 'edit', element: <EditPost /> },
         ],
       },

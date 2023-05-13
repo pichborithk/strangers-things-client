@@ -84,7 +84,7 @@ export async function fetchUserData(token: string): Promise<UserData | void> {
   }
 }
 
-export async function makePost(
+export async function createPost(
   dataObj: NewPost,
   token: string
 ): Promise<MakeNewPost | void> {
@@ -101,6 +101,29 @@ export async function makePost(
     return result;
   } catch (error) {
     console.error(error);
+  }
+}
+
+export async function updatePost(id: string, token: string, dataObj: NewPost) {
+  try {
+    const response = await fetch(`${BASE_URL}/posts/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
+      body: JSON.stringify(dataObj),
+    });
+    const result = await response.json();
+    if (!result.success) {
+      throw result.error;
+    } else {
+      console.log(result.data);
+      return true;
+    }
+  } catch (error) {
+    console.error(error);
+    return false;
   }
 }
 
@@ -126,7 +149,11 @@ export async function deletePost(id: string, token: string): Promise<boolean> {
   }
 }
 
-export async function postMessage(id: string, token: string, content: string) {
+export async function createComment(
+  id: string,
+  token: string,
+  content: string
+) {
   try {
     const response = await fetch(`${BASE_URL}/comments/create/${id}`, {
       method: 'POST',
@@ -138,29 +165,6 @@ export async function postMessage(id: string, token: string, content: string) {
     });
     const result = await response.json();
     if (result.error) {
-      throw result.error;
-    } else {
-      console.log(result.data);
-      return true;
-    }
-  } catch (error) {
-    console.error(error);
-    return false;
-  }
-}
-
-export async function updatePost(id: string, token: string, dataObj: NewPost) {
-  try {
-    const response = await fetch(`${BASE_URL}/posts/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-      body: JSON.stringify(dataObj),
-    });
-    const result = await response.json();
-    if (!result.success) {
       throw result.error;
     } else {
       console.log(result.data);

@@ -80,6 +80,8 @@ export type RootContext = {
   setToken: Dispatch<SetStateAction<string>>;
   getPosts: (token: string) => Promise<void>;
   getUserData: (token: string) => Promise<void>;
+  contactName: string;
+  setContactName: Dispatch<SetStateAction<string>>;
 };
 
 export type ViewPostContext = {

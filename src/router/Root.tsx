@@ -14,6 +14,7 @@ const Root = () => {
   const [token, setToken] = useState(initialToken);
   const [posts, setPosts] = useState<Post[]>([]);
   const [userData, setUserData] = useState(initialUserData);
+  const [contactName, setContactName] = useState('');
 
   const [openUser, setOpenUser] = useState(false);
 
@@ -57,7 +58,16 @@ const Root = () => {
         setUserData={setUserData}
       />
       <Outlet
-        context={{ token, posts, userData, setToken, getPosts, getUserData }}
+        context={{
+          token,
+          posts,
+          userData,
+          setToken,
+          getPosts,
+          getUserData,
+          contactName,
+          setContactName,
+        }}
       />
       <div
         onClick={toggleDarkMode}

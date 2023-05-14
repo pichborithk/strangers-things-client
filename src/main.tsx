@@ -14,6 +14,7 @@ import {
   SignUp,
   ViewPost,
   Home,
+  Message,
 } from './router';
 
 const router = createBrowserRouter([
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
           { path: 'edit', element: <EditPost /> },
         ],
       },
+      { path: 'message', element: <Message /> },
     ],
   },
 ]);

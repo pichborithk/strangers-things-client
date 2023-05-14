@@ -202,3 +202,30 @@ export async function deleteComment(
     return false;
   }
 }
+
+export async function createMessage(
+  token: string,
+  receiverName: string,
+  content: string
+) {
+  try {
+    const response = await fetch(`${BASE_URL}/messages/create/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
+      body: JSON.stringify({ receiverName, content }),
+    });
+    const result = await response.json();
+    if (!result.success) {
+      throw result.error;
+    } else {
+      console.log(result.data);
+      return true;
+    }
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}

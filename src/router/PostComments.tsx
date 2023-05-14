@@ -30,6 +30,7 @@ const PostComments = () => {
       }
     };
   }
+
   function handleDeleteComment(
     postId: string,
     token: string,

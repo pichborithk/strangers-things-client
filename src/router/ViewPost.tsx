@@ -14,10 +14,10 @@ const ViewPost = () => {
     useOutletContext<RootContext>();
 
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { postId } = useParams();
 
   const [isEditing, setIsEditing] = useState(false);
-  const post = posts.find(post => post._id === id)!;
+  const post = posts.find(post => post._id === postId);
 
   useEffect(() => {
     if (!token) {
@@ -29,7 +29,7 @@ const ViewPost = () => {
   if (!posts || !userData || !post) return <></>;
 
   async function handleDelete() {
-    const result = await deletePost(id!, token);
+    const result = await deletePost(postId!, token);
     if (result) {
       await getPosts(token);
       await getUserData(token);
@@ -39,7 +39,7 @@ const ViewPost = () => {
 
   function handleEdit() {
     setIsEditing(true);
-    navigate(`/${post._id}/edit`);
+    navigate(`/posts/${post!._id}/edit`);
   }
 
   return (
@@ -87,7 +87,7 @@ const ViewPost = () => {
       <Outlet
         context={{
           token,
-          id,
+          postId,
           post,
           userData,
           isEditing,

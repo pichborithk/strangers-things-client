@@ -85,7 +85,7 @@ export type RootContext = {
 
 export type ViewPostContext = {
   token: string;
-  id?: string;
+  postId?: string;
   post: Post;
   userData: UserData;
   isEditing: boolean;

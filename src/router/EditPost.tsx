@@ -8,8 +8,15 @@ import { PostForm } from '../components';
 const EditPost = () => {
   const navigate = useNavigate();
 
-  const { id, post, token, isEditing, setIsEditing, getPosts, getUserData } =
-    useOutletContext<ViewPostContext>();
+  const {
+    postId,
+    post,
+    token,
+    isEditing,
+    setIsEditing,
+    getPosts,
+    getUserData,
+  } = useOutletContext<ViewPostContext>();
 
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -18,7 +25,7 @@ const EditPost = () => {
   const deliverRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (!isEditing) return navigate(`/${id}`);
+    if (!isEditing) return navigate(`/posts/${postId}`);
 
     setTitle(post.title);
     setDescription(post.description);
@@ -39,12 +46,12 @@ const EditPost = () => {
         }
       : { title, description, price, willDeliver: deliverRef.current!.checked };
 
-    const result = await updatePost(id!, token, dataObj);
+    const result = await updatePost(postId!, token, dataObj);
     if (result) {
       await getPosts(token);
       await getUserData(token);
       setIsEditing(false);
-      navigate(`/${id}`);
+      navigate(`/${postId}`);
     }
   }
 

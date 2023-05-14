@@ -21,13 +21,14 @@ export type UserInfo = {
   _id: string;
 };
 
+export type Conversation = {
+  withUser: { _id: string; username: string };
+  _id: string;
+  messages: Message[];
+};
+
 export type Message = {
   _id: string;
-  post?: {
-    _id: string;
-    title: string;
-    author: { _id: string; username: string };
-  };
   fromUser: UserInfo;
   content: string;
 };
@@ -80,15 +81,12 @@ export type RootContext = {
   setToken: Dispatch<SetStateAction<string>>;
   getPosts: (token: string) => Promise<void>;
   getUserData: (token: string) => Promise<void>;
-  contactName: string;
-  setContactName: Dispatch<SetStateAction<string>>;
 };
 
 export type ViewPostContext = {
   token: string;
   id?: string;
   post: Post;
-  messagesList: Message[];
   userData: UserData;
   isEditing: boolean;
   setIsEditing: Dispatch<SetStateAction<boolean>>;

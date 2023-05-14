@@ -45,7 +45,7 @@ const router = createBrowserRouter([
         element: <NewMessage />,
       },
       {
-        path: 'conversation/:username',
+        path: 'conversation/:withUser',
         element: <Conversation />,
       },
     ],

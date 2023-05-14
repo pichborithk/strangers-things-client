@@ -73,6 +73,9 @@ const Profile = () => {
               <div
                 key={conversation._id}
                 className='w-full cursor-pointer rounded-md border border-slate-300 bg-slate-100 px-12 py-8 shadow-full transition-colors duration-300 ease-in-out hover:-translate-y-1 dark:border-slate-700 dark:bg-black dark:text-secondary'
+                onClick={() =>
+                  navigate(`/conversation/${conversation.withUser.username}`)
+                }
               >
                 <h2 className='font-jura text-4xl text-primary'>
                   {conversation.withUser.username}

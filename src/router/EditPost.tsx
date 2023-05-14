@@ -51,7 +51,7 @@ const EditPost = () => {
       await getPosts(token);
       await getUserData(token);
       setIsEditing(false);
-      navigate(`/${postId}`);
+      navigate(`/posts/${postId}`);
     }
   }
 

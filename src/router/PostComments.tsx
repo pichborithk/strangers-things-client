@@ -5,7 +5,7 @@ import { deleteComment, createComment } from '../helpers/fetchAPI';
 import { ViewPostContext } from '../types/types';
 
 const PostComments = () => {
-  const { token, id, post, getUserData, userData, getPosts } =
+  const { token, postId, post, getUserData, userData, getPosts } =
     useOutletContext<ViewPostContext>();
   const [comment, setComment] = useState('');
 
@@ -62,13 +62,13 @@ const PostComments = () => {
             {userData._id === cmt.fromUser._id && (
               <i
                 className='fa-solid fa-trash cursor-pointer'
-                onClick={handleDeleteComment(id!, token, cmt._id)}
+                onClick={handleDeleteComment(postId!, token, cmt._id)}
               ></i>
             )}
           </div>
         ))}
       <form
-        onSubmit={handleSubmitComment(id!, token, comment)}
+        onSubmit={handleSubmitComment(postId!, token, comment)}
         className='w-full rounded-md border border-slate-200 bg-white px-12 py-8 shadow-lg transition-colors duration-300 ease-in-out dark:border-slate-700 dark:bg-black'
       >
         <h2 className='mb-2 font-jura text-4xl text-primary'>

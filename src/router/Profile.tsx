@@ -33,7 +33,7 @@ const Profile = () => {
                   <div
                     className='w-full cursor-pointer rounded-md border border-slate-300 bg-slate-100 px-12 py-8 transition-colors duration-300 ease-in-out hover:-translate-y-1  dark:border-slate-700 dark:bg-black dark:text-secondary'
                     key={post._id}
-                    onClick={() => navigate(`/${post._id}`)}
+                    onClick={() => navigate(`/posts/${post._id}`)}
                   >
                     <h2 className='text-2xl text-primary'>{post.title}</h2>
                     <span className='font-jura font-bold text-slate-400'>
@@ -66,8 +66,14 @@ const Profile = () => {
             })}
           </div>
         </div>
-        <div className='flex w-1/2 flex-col items-center gap-4 rounded-md border bg-white p-4 shadow-full  transition-colors duration-300 dark:border-slate-700 dark:bg-black'>
+        <div className='relative flex w-1/2 flex-col items-center gap-4 rounded-md border bg-white p-4 shadow-full  transition-colors duration-300 dark:border-slate-700 dark:bg-black'>
           <h1 className='text-4xl dark:text-secondary'>Inbox</h1>
+          <span
+            className='absolute right-4 top-4 cursor-pointer bg-primary p-2 text-secondary hover:scale-105'
+            onClick={() => navigate('/newmessage')}
+          >
+            New message
+          </span>
           <div className='flex w-full flex-col gap-2'>
             {userData.conversations.map(conversation => (
               <div

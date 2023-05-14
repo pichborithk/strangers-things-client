@@ -22,7 +22,7 @@ const PostCard = ({ post, token }: PostCardProps) => {
         <p>{post.location}</p>
         {token && (
           <Link
-            to={`/${post._id}`}
+            to={`posts/${post._id}`}
             className='w-fit rounded-md border border-primary px-2 py-1 text-primary hover:bg-primary hover:text-secondary'
           >
             View

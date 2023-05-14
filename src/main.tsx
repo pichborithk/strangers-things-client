@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       { path: 'profile', element: <Profile /> },
       { path: 'newpost', element: <NewPost /> },
       {
-        path: ':id',
+        path: '/posts/:postId',
         element: <ViewPost />,
         children: [
           { index: true, element: <PostComments /> },

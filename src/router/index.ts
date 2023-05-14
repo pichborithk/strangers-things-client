@@ -8,4 +8,5 @@ export { default as ViewPost } from './ViewPost';
 export { default as PostComments } from './PostComments';
 export { default as EditPost } from './EditPost';
 export { default as Home } from './Home';
-export { default as Message } from './Message';
+export { default as NewMessage } from './NewMessage';
+export { default as Conversation } from './Conversation';

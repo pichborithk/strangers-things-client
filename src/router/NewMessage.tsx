@@ -3,10 +3,9 @@ import { useOutletContext } from 'react-router-dom';
 import { RootContext } from '../types/types';
 import { createMessage } from '../helpers/fetchAPI';
 
-const Message = () => {
-  const { token, contactName, setContactName } =
-    useOutletContext<RootContext>();
-
+const NewMessage = () => {
+  const { token, getUserData } = useOutletContext<RootContext>();
+  const [contactName, setContactName] = useState('');
   const [content, setContent] = useState('');
 
   function handleSubmit(token: string, receiverName: string, content: string) {
@@ -16,7 +15,7 @@ const Message = () => {
       if (result) {
         setContent('');
         // await getPosts(token);
-        // await getUserData(token);
+        await getUserData(token);
       }
     };
   }
@@ -66,4 +65,4 @@ const Message = () => {
   );
 };
 
-export default Message;
+export default NewMessage;

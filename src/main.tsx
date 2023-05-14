@@ -14,7 +14,8 @@ import {
   SignUp,
   ViewPost,
   Home,
-  Message,
+  NewMessage,
+  Conversation,
 } from './router';
 
 const router = createBrowserRouter([
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
       { path: 'register', element: <SignUp /> },
       { path: 'signin', element: <SignIn /> },
       { path: 'profile', element: <Profile /> },
-      { path: 'new', element: <NewPost /> },
+      { path: 'newpost', element: <NewPost /> },
       {
         path: ':id',
         element: <ViewPost />,
@@ -39,7 +40,14 @@ const router = createBrowserRouter([
           { path: 'edit', element: <EditPost /> },
         ],
       },
-      { path: 'message', element: <Message /> },
+      {
+        path: 'newmessage',
+        element: <NewMessage />,
+      },
+      {
+        path: 'conversation/:username',
+        element: <Conversation />,
+      },
     ],
   },
 ]);

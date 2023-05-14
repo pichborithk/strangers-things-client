@@ -14,7 +14,6 @@ const Root = () => {
   const [token, setToken] = useState(initialToken);
   const [posts, setPosts] = useState<Post[]>([]);
   const [userData, setUserData] = useState(initialUserData);
-  const [contactName, setContactName] = useState('');
 
   const [openUser, setOpenUser] = useState(false);
 
@@ -65,8 +64,6 @@ const Root = () => {
           setToken,
           getPosts,
           getUserData,
-          contactName,
-          setContactName,
         }}
       />
       <div

@@ -34,7 +34,7 @@ const Home = () => {
         />
         {token && (
           <Link
-            to='/new'
+            to='/newpost'
             className='border-2 border-primary px-4 py-2 text-primary hover:bg-primary hover:text-secondary'
           >
             New Post

@@ -11,7 +11,7 @@ const PostComments = () => {
 
   // async function handleSubmitComment(event: FormEvent) {
   //   event.preventDefault();
-  //   const result = await createMessage(id!, token, comment);
+  //   const result = await createComment(id!, token, comment);
   //   if (result) {
   //     setComment('');
   //     await getPosts(token);

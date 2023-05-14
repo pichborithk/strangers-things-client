@@ -21,7 +21,6 @@ const SignIn = () => {
         setNotification(result.message);
         return;
       }
-      console.log(result!.data);
       setToken(result!.data!.token);
     } catch (error) {
       console.error('Catch handle sign in', error);

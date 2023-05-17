@@ -61,6 +61,7 @@ export async function fetchAllPosts(token: string = ''): Promise<Post[]> {
     });
     const result = await response.json();
     if (!result.success) console.error(result.message);
+    console.log(result.data);
     return result.data;
   } catch (error) {
     console.error(error);
@@ -209,7 +210,7 @@ export async function createMessage(
   content: string
 ) {
   try {
-    const response = await fetch(`${BASE_URL}/messages/create/`, {
+    const response = await fetch(`${BASE_URL}/messages/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

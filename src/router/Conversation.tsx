@@ -28,24 +28,32 @@ const Conversation = () => {
   }
 
   return (
-    <div className='mx-auto flex max-w-6xl flex-col gap-4'>
+    <div className='mx-auto flex max-w-4xl flex-col gap-2 rounded-md border border-slate-300 bg-white py-4 shadow-full transition-colors duration-300 ease-in-out dark:border-slate-700 dark:bg-black dark:text-secondary'>
+      <h1 className='text-center text-4xl text-primary'>
+        {conversation.withUser.username[0].toUpperCase() +
+          conversation.withUser.username.slice(1).toLowerCase()}
+      </h1>
       {conversation.messages.map(msg => (
         <div
           key={msg._id}
-          className={`w-full cursor-pointer rounded-md border border-slate-300 bg-slate-100 px-12 py-8 shadow-full transition-colors duration-300 ease-in-out hover:-translate-y-1 dark:border-slate-700 dark:bg-black dark:text-secondary
-          ${userData.username === msg.fromUser.username ? 'text-right' : ''}`}
+          className={`flex w-full items-center gap-2 px-12 py-2 ${
+            userData.username === msg.fromUser.username
+              ? 'flex-row-reverse'
+              : ''
+          }`}
         >
-          <h2 className='font-jura text-4xl text-primary'>
-            {msg.fromUser.username}
-          </h2>
-          <p>{msg.content}</p>
+          <p className='flex h-8 w-8 items-center justify-center rounded-full bg-primary p-2 text-2xl text-secondary'>
+            {msg.fromUser.username[0].toUpperCase()}
+          </p>
+          <p className='rounded-full bg-slate-400 px-4 font-jura text-xl font-bold dark:bg-slate-700'>
+            {msg.content}
+          </p>
         </div>
       ))}
       <form
         onSubmit={handleSubmit(token, withUser, content)}
-        className='w-full rounded-md border border-slate-200 bg-white px-12 py-8 shadow-lg transition-colors duration-300 ease-in-out dark:border-slate-700 dark:bg-black'
+        className='w-full border-slate-200 bg-white px-12 py-2 transition-colors duration-300 ease-in-out dark:border-slate-700 dark:bg-black'
       >
-        <h2 className='mb-2 font-jura text-4xl text-primary'>To: {withUser}</h2>
         <fieldset className='flex w-full gap-2'>
           <input
             name='content'
@@ -53,11 +61,11 @@ const Conversation = () => {
             value={content}
             onChange={event => setContent(event.target.value)}
             required
-            className='flex-1 rounded-md border border-solid border-slate-500 px-4 py-2 focus:outline-primary'
+            className='flex-1 rounded-full border border-solid border-slate-500 px-4 py-2 focus:outline-primary dark:bg-slate-700'
           />
           {content && (
-            <button>
-              <i className='fa-sharp fa-solid fa-share fa-rotate-180 text-2xl text-primary'></i>
+            <button className='flex h-10 w-10 items-center justify-center rounded-full bg-primary'>
+              <i className='fa-solid fa-arrow-up text-2xl text-secondary'></i>
             </button>
           )}
         </fieldset>

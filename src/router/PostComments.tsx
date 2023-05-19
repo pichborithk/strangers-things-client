@@ -51,11 +51,11 @@ const PostComments = () => {
       <h2 className='text-center text-2xl dark:text-secondary'>Comments</h2>
       {post.comments &&
         post.comments.map(cmt => (
-          <div key={cmt._id} className='flex items-center gap-4 px-12'>
+          <div key={cmt._id} className='flex gap-2 px-12'>
             <p className='flex h-12 w-12 items-center justify-center rounded-full bg-primary p-2 text-4xl text-secondary'>
               {cmt.fromUser.username[0].toUpperCase()}
             </p>
-            <div className='flex flex-1 items-center rounded-md bg-slate-300 p-2'>
+            <div className='flex flex-1 items-center rounded-md bg-slate-300 px-4 py-2 dark:bg-slate-700'>
               <div className='flex-1'>
                 <p>
                   {cmt.fromUser.username[0].toUpperCase() +
@@ -68,7 +68,7 @@ const PostComments = () => {
               </div>
               {userData._id === cmt.fromUser._id && (
                 <i
-                  className='fa-solid fa-trash mr-4 cursor-pointer text-xl text-red-700'
+                  className='fa-solid fa-trash cursor-pointer text-xl text-red-700'
                   onClick={handleDeleteComment(postId!, token, cmt._id)}
                 ></i>
               )}
@@ -86,7 +86,7 @@ const PostComments = () => {
             value={comment}
             onChange={event => setComment(event.target.value)}
             required
-            className='flex-1 rounded-md border border-solid border-slate-500 px-4 py-2 focus:outline-primary'
+            className='flex-1 rounded-full border border-solid border-slate-500 px-4 py-2 focus:outline-primary dark:bg-slate-700'
           />
           {comment && (
             <button>
